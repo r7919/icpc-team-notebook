@@ -1,0 +1,182 @@
+\hypertarget{dsu-without-path-compression}{%
+\subsection{DSU without Path
+Compression}\label{dsu-without-path-compression}}
+
+\begin{itemize}
+\tightlist
+\item
+  When we are using DSU without path compression, in scenarios like DSU
+  with rollbacks, we can need to keep the DSU time complexity to a
+  minimum.
+\item
+  This is also acheived by a technique similar to small to large. Here,
+  when merging two components, we set the parent of the smaller
+  component to the larger component.
+\item
+  Each time we traverse an edge to a parent, the overall subtree size at
+  that parent is doubled. Implies \texttt{O(logn)} for find operation.
+\end{itemize}
+
+\hypertarget{bit-tricks}{%
+\subsection{BIT TRICKS}\label{bit-tricks}}
+
+\begin{itemize}
+\tightlist
+\item
+  To get the value of the least significant bit that is one
+  \texttt{V\ =\ (\ x\ \ \&\ \ (-x)\ )}
+\item
+  For Subarray \texttt{\&} think about suffix subarray \texttt{\&} and
+  traverse form right to left since number of distinct values for
+  arr{[}L, r{]} is atmost \texttt{64}, number of set bits decreases
+  monotonically for \texttt{r\ \textgreater{}=\ L} as \texttt{r}
+  increases.
+\end{itemize}
+
+\hypertarget{math}{%
+\subsection{MATH}\label{math}}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{(x\ mod\ a)\ mod\ (ak)\ =\ (x\ mod\ (ak))\ mod\ (a)\ =\ x\ mod\ (a)}
+\item
+  If we want to determine the probability of moving from the state
+  \texttt{X} to state \texttt{Y} over \texttt{K} steps - use Markov.
+  \{matrix exponentiation\}
+\item
+  It is better to take \texttt{\%\ MOD} of the matrix before
+  exponentiation or multiplication to reduce the number of modulo
+  operations.
+\end{itemize}
+
+\hypertarget{graphs}{%
+\subsection{GRAPHS}\label{graphs}}
+
+\begin{itemize}
+\item
+  A DAG \texttt{G} has at least one vertex with in-degree \texttt{0} and
+  one vertex with out-degree \texttt{0}
+\item
+  In the DFS tree of an ``undirected graph'' \textbf{edges can only go
+  from a descendant to an ancestor} i.e, No cross edges. The back-edges
+  of the graph all connect a vertex with its descendant in the spanning
+  tree. This is why DFS tree is so useful.
+\end{itemize}
+
+\hypertarget{cmp}{%
+\subsection{CMP}\label{cmp}}
+
+\begin{itemize}
+\tightlist
+\item
+  SET
+\end{itemize}
+
+\begin{verbatim}
+ auto cmp = [&](ll a, ll b)
+ {
+    return a > b;
+ }; 
+ set<ll, decltype(cmp)> s(cmp); 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  MULTISET
+\end{itemize}
+
+\begin{verbatim}
+  auto cmp = [&](ll a, ll b)
+  {
+    return a > b;
+  }; 
+  multiset<ll, decltype(cmp)> s(cmp); 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  PRIORITY QUEUE
+\end{itemize}
+
+\begin{verbatim}
+  auto cmp = [&](ll a, ll b)
+  {
+    return a > b;
+  }; 
+  priority_queue<ll, vl, decltype(cmp)> pq(cmp); 
+\end{verbatim}
+
+\begin{verbatim}
+  priority_queue<ll, vl, greater<ll>> pq; 
+  // min heap, default max heap
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  ORDERED SET (NO fsanitize)
+\end{itemize}
+
+\begin{verbatim}
+  auto cmp = [&](ll a, ll b)
+  {
+    return a > b;
+  }; 
+  ordered_set<ll, decltype(cmp)> s(cmp); 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  USING STRUCT
+\end{itemize}
+
+\begin{verbatim}
+struct student
+{
+  string s; 
+  ll r;
+  bool operator<(const student &other) const
+  {
+    return r < other.r;
+  }
+};
+\end{verbatim}
+
+\hypertarget{two-pointers}{%
+\subsection{TWO POINTERS}\label{two-pointers}}
+
+\begin{itemize}
+\tightlist
+\item
+  Works if \texttt{l\textquotesingle{}\ \textgreater{}\ l} then
+  \texttt{r\textquotesingle{}\ \textgreater{}=\ r}
+\end{itemize}
+
+\begin{verbatim}
+// template for 2 pointers
+ll head = -1, tail = 0;
+while (tail < n)
+{
+  while ((head + 1 < n) && check())
+  {
+    head++;
+    // upd
+  }
+  ans = max(ans, head - tail + 1);
+  if (tail < head)
+  {
+    tail++;
+    // upd
+  }
+  else
+  {
+    tail++;
+    head = tail - 1;
+    // reset
+  }
+}
+\end{verbatim}

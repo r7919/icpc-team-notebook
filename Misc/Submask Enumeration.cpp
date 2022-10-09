@@ -1,0 +1,3 @@
+for (int s=m; s; s=(s-1)&m)
+ ... you can use s ...
+// zero will not be processed.
